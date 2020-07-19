@@ -37,9 +37,12 @@ class TransformerLanguageModel(FairseqLanguageModel):
         return {
             'transformer_lm.gbw.adaptive_huge': 'https://dl.fbaipublicfiles.com/fairseq/models/lm/adaptive_lm_gbw_huge.tar.bz2',
             'transformer_lm.wiki103.adaptive': 'https://dl.fbaipublicfiles.com/fairseq/models/lm/adaptive_lm_wiki103.tar.bz2',
-            'transformer_lm.wmt19.en': moses_fastbpe('https://dl.fbaipublicfiles.com/fairseq/models/lm/wmt19.en.tar.bz2'),
-            'transformer_lm.wmt19.de': moses_fastbpe('https://dl.fbaipublicfiles.com/fairseq/models/lm/wmt19.de.tar.bz2'),
-            'transformer_lm.wmt19.ru': moses_fastbpe('https://dl.fbaipublicfiles.com/fairseq/models/lm/wmt19.ru.tar.bz2'),
+            'transformer_lm.wmt19.en': moses_fastbpe(
+                'https://dl.fbaipublicfiles.com/fairseq/models/lm/wmt19.en.tar.bz2'),
+            'transformer_lm.wmt19.de': moses_fastbpe(
+                'https://dl.fbaipublicfiles.com/fairseq/models/lm/wmt19.de.tar.bz2'),
+            'transformer_lm.wmt19.ru': moses_fastbpe(
+                'https://dl.fbaipublicfiles.com/fairseq/models/lm/wmt19.ru.tar.bz2'),
         }
 
     def __init__(self, decoder):
@@ -231,6 +234,116 @@ def transformer_lm_baevski_wiki103(args):
     args.no_decoder_final_norm = getattr(args, 'no_decoder_final_norm', True)
     args.tie_adaptive_proj = getattr(args, 'tie_adaptive_proj', True)
     transformer_lm_big(args)
+
+@register_model_architecture('transformer_lm', 'transformer_lm_wiki103_emb_big')
+@register_model_architecture('transformer_lm', 'transformer_lm_baevski_wiki103_big')
+def transformer_lm_baevski_wiki103(args):
+    args.decoder_layers = getattr(args, 'decoder_layers', 16)
+    args.decoder_attention_heads = getattr(args, 'decoder_attention_heads', 8)
+    args.decoder_embed_dim = getattr(args, 'decoder_embed_dim', 2048)
+    args.decoder_ffn_embed_dim = getattr(args, 'decoder_ffn_embed_dim', 4096)
+    args.dropout = getattr(args, 'dropout', 0.3)
+    args.adaptive_input = getattr(args, 'adaptive_input', True)
+    args.tie_adaptive_weights = getattr(args, 'tie_adaptive_weights', True)
+    args.adaptive_input_cutoff = getattr(args, 'adaptive_input_cutoff', '20000,60000')
+    args.adaptive_softmax_cutoff = getattr(args, 'adaptive_softmax_cutoff', '20000,60000')
+    args.adaptive_softmax_dropout = getattr(args, 'adaptive_softmax_dropout', 0.2)
+    args.attention_dropout = getattr(args, 'attention_dropout', 0.1)
+    args.activation_dropout = getattr(args, 'activation_dropout', 0.1)
+    args.no_decoder_final_norm = getattr(args, 'no_decoder_final_norm', True)
+    args.tie_adaptive_proj = getattr(args, 'tie_adaptive_proj', True)
+    transformer_lm_big(args)
+
+@register_model_architecture('transformer_lm', 'transformer_lm_wiki103_ffn_big')
+@register_model_architecture('transformer_lm', 'transformer_lm_baevski_wiki103_big')
+def transformer_lm_baevski_wiki103(args):
+    args.decoder_layers = getattr(args, 'decoder_layers', 16)
+    args.decoder_attention_heads = getattr(args, 'decoder_attention_heads', 8)
+    args.decoder_embed_dim = getattr(args, 'decoder_embed_dim', 1024)
+    args.decoder_ffn_embed_dim = getattr(args, 'decoder_ffn_embed_dim', 8192)
+    args.dropout = getattr(args, 'dropout', 0.3)
+    args.adaptive_input = getattr(args, 'adaptive_input', True)
+    args.tie_adaptive_weights = getattr(args, 'tie_adaptive_weights', True)
+    args.adaptive_input_cutoff = getattr(args, 'adaptive_input_cutoff', '20000,60000')
+    args.adaptive_softmax_cutoff = getattr(args, 'adaptive_softmax_cutoff', '20000,60000')
+    args.adaptive_softmax_dropout = getattr(args, 'adaptive_softmax_dropout', 0.2)
+    args.attention_dropout = getattr(args, 'attention_dropout', 0.1)
+    args.activation_dropout = getattr(args, 'activation_dropout', 0.1)
+    args.no_decoder_final_norm = getattr(args, 'no_decoder_final_norm', True)
+    args.tie_adaptive_proj = getattr(args, 'tie_adaptive_proj', True)
+    transformer_lm_big(args)
+
+
+@register_model_architecture('transformer_lm', 'transformer_lm_wiki103_18_8')
+@register_model_architecture('transformer_lm', 'transformer_lm_baevski_wiki103_18_8')
+def transformer_lm_baevski_wiki103(args):
+    args.decoder_layers = getattr(args, 'decoder_layers', 18)
+    args.decoder_attention_heads = getattr(args, 'decoder_attention_heads', 8)
+    args.dropout = getattr(args, 'dropout', 0.3)
+    args.adaptive_input = getattr(args, 'adaptive_input', True)
+    args.tie_adaptive_weights = getattr(args, 'tie_adaptive_weights', True)
+    args.adaptive_input_cutoff = getattr(args, 'adaptive_input_cutoff', '20000,60000')
+    args.adaptive_softmax_cutoff = getattr(args, 'adaptive_softmax_cutoff', '20000,60000')
+    args.adaptive_softmax_dropout = getattr(args, 'adaptive_softmax_dropout', 0.2)
+    args.attention_dropout = getattr(args, 'attention_dropout', 0.1)
+    args.activation_dropout = getattr(args, 'activation_dropout', 0.1)
+    args.no_decoder_final_norm = getattr(args, 'no_decoder_final_norm', True)
+    args.tie_adaptive_proj = getattr(args, 'tie_adaptive_proj', True)
+    transformer_lm_big(args)
+
+
+@register_model_architecture('transformer_lm', 'transformer_lm_wiki103_20_12')
+@register_model_architecture('transformer_lm', 'transformer_lm_baevski_wiki103_18_12')
+def transformer_lm_baevski_wiki103(args):
+    args.decoder_layers = getattr(args, 'decoder_layers', 20)
+    args.decoder_attention_heads = getattr(args, 'decoder_attention_heads', 12)
+    args.dropout = getattr(args, 'dropout', 0.3)
+    args.adaptive_input = getattr(args, 'adaptive_input', True)
+    args.tie_adaptive_weights = getattr(args, 'tie_adaptive_weights', True)
+    args.adaptive_input_cutoff = getattr(args, 'adaptive_input_cutoff', '20000,60000')
+    args.adaptive_softmax_cutoff = getattr(args, 'adaptive_softmax_cutoff', '20000,60000')
+    args.adaptive_softmax_dropout = getattr(args, 'adaptive_softmax_dropout', 0.2)
+    args.attention_dropout = getattr(args, 'attention_dropout', 0.1)
+    args.activation_dropout = getattr(args, 'activation_dropout', 0.1)
+    args.no_decoder_final_norm = getattr(args, 'no_decoder_final_norm', True)
+    args.tie_adaptive_proj = getattr(args, 'tie_adaptive_proj', True)
+    transformer_lm_big(args)
+
+
+@register_model_architecture('transformer_lm', 'transformer_lm_wiki103_16_12')
+@register_model_architecture('transformer_lm', 'transformer_lm_baevski_wiki103_16_12')
+def transformer_lm_baevski_wiki103(args):
+    args.decoder_layers = getattr(args, 'decoder_layers', 16)
+    args.decoder_attention_heads = getattr(args, 'decoder_attention_heads', 12)
+    args.dropout = getattr(args, 'dropout', 0.3)
+    args.adaptive_input = getattr(args, 'adaptive_input', True)
+    args.tie_adaptive_weights = getattr(args, 'tie_adaptive_weights', True)
+    args.adaptive_input_cutoff = getattr(args, 'adaptive_input_cutoff', '20000,60000')
+    args.adaptive_softmax_cutoff = getattr(args, 'adaptive_softmax_cutoff', '20000,60000')
+    args.adaptive_softmax_dropout = getattr(args, 'adaptive_softmax_dropout', 0.2)
+    args.attention_dropout = getattr(args, 'attention_dropout', 0.1)
+    args.activation_dropout = getattr(args, 'activation_dropout', 0.1)
+    args.no_decoder_final_norm = getattr(args, 'no_decoder_final_norm', True)
+    args.tie_adaptive_proj = getattr(args, 'tie_adaptive_proj', True)
+    transformer_lm_big(args)
+
+@register_model_architecture('transformer_lm', 'transformer_lm_wiki103_12_8')
+@register_model_architecture('transformer_lm', 'transformer_lm_baevski_wiki103_12_8')
+def transformer_lm_baevski_wiki103(args):
+    args.decoder_layers = getattr(args, 'decoder_layers', 12)
+    args.decoder_attention_heads = getattr(args, 'decoder_attention_heads', 8)
+    args.dropout = getattr(args, 'dropout', 0.3)
+    args.adaptive_input = getattr(args, 'adaptive_input', True)
+    args.tie_adaptive_weights = getattr(args, 'tie_adaptive_weights', True)
+    args.adaptive_input_cutoff = getattr(args, 'adaptive_input_cutoff', '20000,60000')
+    args.adaptive_softmax_cutoff = getattr(args, 'adaptive_softmax_cutoff', '20000,60000')
+    args.adaptive_softmax_dropout = getattr(args, 'adaptive_softmax_dropout', 0.2)
+    args.attention_dropout = getattr(args, 'attention_dropout', 0.1)
+    args.activation_dropout = getattr(args, 'activation_dropout', 0.1)
+    args.no_decoder_final_norm = getattr(args, 'no_decoder_final_norm', True)
+    args.tie_adaptive_proj = getattr(args, 'tie_adaptive_proj', True)
+    transformer_lm_big(args)
+
 
 
 @register_model_architecture('transformer_lm', 'transformer_lm_gbw')
