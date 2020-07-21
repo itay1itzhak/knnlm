@@ -70,7 +70,6 @@ class SequenceScorer(object):
             attn = decoder_out[1]
             if type(attn) is dict:
                 attn = attn.get('attn', None)
-            print("attn.shape", attn.shape)
 
             batched = batch_for_softmax(decoder_out, orig_target)
             probs, idx = None, 0
@@ -94,7 +93,7 @@ class SequenceScorer(object):
 
             probs = probs.view(sample['target'].shape)
 
-            print("probs.shape",probs.shape )
+            print("probs.shape", probs.shape)
 
             if 'knn_dstore' in kwargs:
                 dstore = kwargs['knn_dstore']
@@ -104,9 +103,9 @@ class SequenceScorer(object):
                     raise ValueError('Only knn *log* probs are supported.')
 
                 yhat_knn_prob = dstore.get_knn_log_prob(
-                        queries,
-                        orig_target.permute(1, 0),
-                        pad_idx=self.pad)
+                    queries,
+                    orig_target.permute(1, 0),
+                    pad_idx=self.pad)
                 yhat_knn_prob = yhat_knn_prob.permute(1, 0, 2).squeeze(-1)
                 if self.args.fp16:
                     yhat_knn_prob = yhat_knn_prob.half()
@@ -115,10 +114,10 @@ class SequenceScorer(object):
                 if self.args.lmbda == 1.0:
                     print("$probs.shape", probs.shape)
                     probs = combine_knn_and_vocab_probs(
-                        yhat_knn_prob, probs.new_full(probs.size(), 1/probs.shape[2]), self.args.lmbda)
+                        yhat_knn_prob, probs.new_full(probs.size(), 1 / probs.shape[2]), self.args.lmbda)
                 else:
                     probs = combine_knn_and_vocab_probs(
-                                yhat_knn_prob, probs, self.args.lmbda)
+                        yhat_knn_prob, probs, self.args.lmbda)
 
             if avg_probs is None:
                 avg_probs = probs
@@ -166,6 +165,7 @@ class SequenceScorer(object):
                 'attention': avg_attn_i,
                 'alignment': alignment,
                 'positional_scores': avg_probs_i,
-                'dstore_keys': decoder_out[1][self.args.knn_keytype][start_idxs[i]:,i,:] if self.args.save_knnlm_dstore else None,
+                'dstore_keys': decoder_out[1][self.args.knn_keytype][start_idxs[i]:, i,
+                               :] if self.args.save_knnlm_dstore else None,
             }])
         return hypos
