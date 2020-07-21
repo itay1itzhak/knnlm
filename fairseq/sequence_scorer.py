@@ -70,12 +70,15 @@ class SequenceScorer(object):
             attn = decoder_out[1]
             if type(attn) is dict:
                 attn = attn.get('attn', None)
+            print("attn.shape", attn.shape)
 
             batched = batch_for_softmax(decoder_out, orig_target)
             probs, idx = None, 0
             for i, (bd, tgt, is_single) in enumerate(batched):
                 sample['target'] = tgt
                 curr_prob = model.get_normalized_probs(bd, log_probs=len(models) == 1, sample=sample).data
+
+                print("curr_prob.shape", curr_prob.shape)
 
                 if is_single:
                     probs = gather_target_probs(curr_prob, orig_target)
@@ -90,6 +93,8 @@ class SequenceScorer(object):
                 sample['target'] = orig_target
 
             probs = probs.view(sample['target'].shape)
+
+            print("probs.shape",probs.shape )
 
             if 'knn_dstore' in kwargs:
                 dstore = kwargs['knn_dstore']
