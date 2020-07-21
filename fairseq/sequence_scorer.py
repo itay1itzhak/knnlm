@@ -77,7 +77,9 @@ class SequenceScorer(object):
                 sample['target'] = tgt
                 curr_prob = model.get_normalized_probs(bd, log_probs=len(models) == 1, sample=sample).data
 
-                print("curr_prob.shape", curr_prob.shape)
+                # interpolation with uniform distribution
+                if self.args.lmbda == 1.0:
+                    curr_prob = curr_prob.new_full(curr_prob.size(), 1 / curr_prob.shape[2])
 
                 if is_single:
                     probs = gather_target_probs(curr_prob, orig_target)
@@ -92,8 +94,6 @@ class SequenceScorer(object):
                 sample['target'] = orig_target
 
             probs = probs.view(sample['target'].shape)
-
-            print("probs.shape", probs.shape)
 
             if 'knn_dstore' in kwargs:
                 dstore = kwargs['knn_dstore']
@@ -112,9 +112,8 @@ class SequenceScorer(object):
                     probs = probs.half()
 
                 if self.args.lmbda == 1.0:
-                    print("$probs.shape", probs.shape)
                     probs = combine_knn_and_vocab_probs(
-                        yhat_knn_prob, probs.new_full(probs.size(), 1 / probs.shape[2]), self.args.lmbda)
+                        yhat_knn_prob, probs, self.args.lmbda - 1e-2)
                 else:
                     probs = combine_knn_and_vocab_probs(
                         yhat_knn_prob, probs, self.args.lmbda)
