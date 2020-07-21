@@ -107,8 +107,14 @@ class SequenceScorer(object):
                     yhat_knn_prob = yhat_knn_prob.half()
                     probs = probs.half()
 
-                probs = combine_knn_and_vocab_probs(
-                            yhat_knn_prob, probs, self.args.lmbda)
+                print("self.args",self.args)
+                if self.args.no_interpulation:
+                    print("$probs.shape", probs.shape)
+                    probs = combine_knn_and_vocab_probs(
+                        yhat_knn_prob, probs.new_full(probs.size(), 1/probs.shape[2]), self.args.lmbda)
+                else:
+                    probs = combine_knn_and_vocab_probs(
+                                yhat_knn_prob, probs, self.args.lmbda)
 
             if avg_probs is None:
                 avg_probs = probs
