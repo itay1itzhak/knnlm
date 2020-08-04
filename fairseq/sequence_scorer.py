@@ -112,9 +112,11 @@ class SequenceScorer(object):
                     probs = probs.half()
 
                 if self.args.lmbda == 1.0:
+                    print("self.args.lmbda == 1.0, sending coeff:",self.args.lmbda - 1e-2)
                     probs = combine_knn_and_vocab_probs(
                         yhat_knn_prob, probs, self.args.lmbda - 1e-2)
                 else:
+                    print("self.args.lmbda != 1.0, sending coeff:", self.args.lmbda)
                     probs = combine_knn_and_vocab_probs(
                         yhat_knn_prob, probs, self.args.lmbda)
 
