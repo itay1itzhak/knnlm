@@ -292,11 +292,11 @@ def transformer_lm_baevski_wiki103(args):
     transformer_lm_big(args)
 
 
-@register_model_architecture('transformer_lm', 'transformer_lm_wiki103_20_12')
-@register_model_architecture('transformer_lm', 'transformer_lm_baevski_wiki103_18_12')
+@register_model_architecture('transformer_lm', 'transformer_lm_wiki103_20_16')
+@register_model_architecture('transformer_lm', 'transformer_lm_baevski_wiki103_18_16')
 def transformer_lm_baevski_wiki103(args):
     args.decoder_layers = getattr(args, 'decoder_layers', 20)
-    args.decoder_attention_heads = getattr(args, 'decoder_attention_heads', 12)
+    args.decoder_attention_heads = getattr(args, 'decoder_attention_heads', 16)
     args.dropout = getattr(args, 'dropout', 0.3)
     args.adaptive_input = getattr(args, 'adaptive_input', True)
     args.tie_adaptive_weights = getattr(args, 'tie_adaptive_weights', True)
