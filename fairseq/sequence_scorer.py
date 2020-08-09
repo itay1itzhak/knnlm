@@ -82,7 +82,7 @@ class SequenceScorer(object):
                 print("curr_prob.shape before:", curr_prob.shape)
 
                 if self.args.lmbda == 1.0:
-                    curr_prob = curr_prob.new_full(curr_prob.size(), 1 / curr_prob.shape[2])
+                    curr_prob = curr_prob.new_full(torch.log(curr_prob.size(), 1 / curr_prob.shape[2]))
 
                 print("curr_prob after:", curr_prob)
                 print("curr_prob.shape after:", curr_prob.shape)
