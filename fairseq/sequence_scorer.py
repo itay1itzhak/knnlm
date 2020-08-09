@@ -78,14 +78,8 @@ class SequenceScorer(object):
                 curr_prob = model.get_normalized_probs(bd, log_probs=len(models) == 1, sample=sample).data
 
                 # interpolation with uniform distribution
-                print("curr_prob before:",curr_prob)
-                print("curr_prob.shape before:", curr_prob.shape)
-
                 if self.args.lmbda == 1.0:
                     curr_prob = curr_prob.new_full(curr_prob.size(), np.log(1 / curr_prob.shape[2]))
-
-                print("curr_prob after:", curr_prob)
-                print("curr_prob.shape after:", curr_prob.shape)
 
                 if is_single:
                     probs = gather_target_probs(curr_prob, orig_target)
