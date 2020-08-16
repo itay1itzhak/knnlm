@@ -11,14 +11,7 @@ CUDA_VISIBLE_DEVICES=1,2,4,7 python train.py --task language_modeling \
 
 eval knn my model
 CUDA_VISIBLE_DEVICES=1 python eval_lm.py /specific/netapp5_2/gamir/advml20/tomeramit/knnlm/data-bin/wikitext-103/ \
-    --path /specific/netapp5_2/gamir/advml20/tomeramit/knnlm/checkpoints_emb_big/checkpoint51.pt \
-    --sample-break-mode complete --max-tokens 768 \
-    --context-window 512 --softmax-batch 1024 \
-    --gen-subset valid
-	
-eval knn best checkpoint model
-CUDA_VISIBLE_DEVICES=1 python eval_lm.py /specific/netapp5_2/gamir/advml20/tomeramit/knnlm/data-bin/wikitext-103/ \
-    --path /specific/netapp5_2/gamir/advml20/tomeramit/knnlm/checkpoint_base/wt103_checkpoint_best.pt \
+    --path /specific/netapp5_2/gamir/advml20/tomeramit/knnlm/checkpoints_emb_big/checkpoint_best.pt \
     --sample-break-mode complete --max-tokens 768 \
     --context-window 512 --softmax-batch 1024 \
     --gen-subset valid
