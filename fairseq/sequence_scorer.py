@@ -113,7 +113,7 @@ class SequenceScorer(object):
 
                 if self.args.lmbda == 1.0:
                     probs = combine_knn_and_vocab_probs(
-                        yhat_knn_prob, probs, self.args.lmbda - 1e-2)
+                        yhat_knn_prob, probs, self.args.lmbda - 1e-1)
                 else:
                     probs = combine_knn_and_vocab_probs(
                         yhat_knn_prob, probs, self.args.lmbda)
