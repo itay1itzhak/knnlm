@@ -35,23 +35,23 @@ python build_dstore.py \
     --starting_point 0
 
 eval faiss index
-CUDA_VISIBLE_DEVICES=1 python eval_lm.py /specific/netapp5_2/gamir/advml20/tomeramit/knnlm/data-bin/wikitext-103/ \
+CUDA_VISIBLE_DEVICES=2 python eval_lm.py /specific/netapp5_2/gamir/advml20/tomeramit/knnlm/data-bin/wikitext-103/ \
     --path /specific/netapp5_2/gamir/advml20/tomeramit/knnlm/checkpoints_18_8/checkpoint_best.pt \
     --sample-break-mode complete --max-tokens 768 \
     --context-window 512 --softmax-batch 1024 \
     --gen-subset valid --dstore-filename /specific/scratches/scratch/tomer/dstore/dstore_18_8 \
     --indexfile /specific/netapp5_2/gamir/advml20/tomeramit/knnlm/checkpoints_18_8/index/knn.index  \
     --model-overrides "{'knn_keytype': 'last_ffn_input'}" \
-    --k 256 --lmbda 0.25 --dstore-size 103225485 --knn-keytype last_ffn_input \
+    --k 256 --lmbda 0.25 --dstore-size 103226509 --knn-keytype last_ffn_input \
     --probe 32 --knnlm --no-load-keys --knn-sim-func "do_not_recomp_l2"
 
 eval our faiss index
-CUDA_VISIBLE_DEVICES=1 python eval_lm.py /specific/netapp5_2/gamir/advml20/tomeramit/knnlm/data-bin/wikitext-103/ \
+CUDA_VISIBLE_DEVICES=2 python eval_lm.py /specific/netapp5_2/gamir/advml20/tomeramit/knnlm/data-bin/wikitext-103/ \
     --path /specific/netapp5_2/gamir/advml20/tomeramit/knnlm/checkpoints_18_8/checkpoint_best.pt \
     --sample-break-mode complete --max-tokens 768 \
     --context-window 512 --softmax-batch 1024 \
     --gen-subset valid --dstore-filename /specific/scratches/scratch/tomer/dstore/dstore_18_8 \
     --indexfile /specific/netapp5_2/gamir/advml20/tomeramit/knnlm/checkpoints_18_8/index/knn.index  \
     --model-overrides "{'knn_keytype': 'last_ffn_input'}" \
-    --k 256 --lmbda 1.0 --dstore-size 103225485 --knn-keytype last_ffn_input \
+    --k 256 --lmbda 1.0 --dstore-size 103226509 --knn-keytype last_ffn_input \
     --probe 32 --knnlm --no-load-keys --knn-sim-func "do_not_recomp_l2"
