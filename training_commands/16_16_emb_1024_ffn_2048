@@ -1,6 +1,6 @@
 
 train knn transformer
-CUDA_VISIBLE_DEVICES=3,4,5 python train.py --task language_modeling \
+CUDA_VISIBLE_DEVICES=1,2,3 python train.py --task language_modeling \
     /specific/netapp5_2/gamir/advml20/tomeramit/knnlm/data-bin/wikitext-103/ \
     --save-dir checkpoints_16_16_emb_1024_ffn_2048/ \
     --arch transformer_lm_wiki103_16_16_emb_1024_ffn_2048 \

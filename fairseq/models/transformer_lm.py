@@ -412,7 +412,7 @@ def transformer_lm_baevski_wiki103(args):
     transformer_lm_big(args)
 
 @register_model_architecture('transformer_lm', 'transformer_lm_wiki103_16_16_emb_1024_ffn_2048')
-@register_model_architecture('transformer_lm', 'transformer_lm_wiki103_16_16_emb_1024_ffn_2048')
+@register_model_architecture('transformer_lm', 'transformer_lm_baevski_wiki103_16_16_emb_1024_ffn_2048')
 def transformer_lm_baevski_wiki103(args):
     args.decoder_layers = getattr(args, 'decoder_layers', 16)
     args.decoder_attention_heads = getattr(args, 'decoder_attention_heads', 16)
@@ -431,7 +431,7 @@ def transformer_lm_baevski_wiki103(args):
     transformer_lm_big(args)
 
 @register_model_architecture('transformer_lm', 'transformer_lm_wiki103_16_16_emb_512_ffn_2048')
-@register_model_architecture('transformer_lm', 'transformer_lm_wiki103_16_16_emb_512_ffn_2048')
+@register_model_architecture('transformer_lm', 'transformer_lm_baevski_wiki103_16_16_emb_512_ffn_2048')
 def transformer_lm_baevski_wiki103(args):
     args.decoder_layers = getattr(args, 'decoder_layers', 16)
     args.decoder_attention_heads = getattr(args, 'decoder_attention_heads', 16)
