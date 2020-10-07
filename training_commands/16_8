@@ -1,6 +1,6 @@
 
 train knn transformer
-CUDA_VISIBLE_DEVICES=0,1,2,3,5 python train.py --task language_modeling \
+CUDA_VISIBLE_DEVICES=6,7 python train.py --task language_modeling \
     /specific/netapp5_2/gamir/advml20/tomeramit/knnlm/data-bin/wikitext-103/ \
     --save-dir checkpoints_16_8/ \
     --arch transformer_lm_wiki103_16_8 \
@@ -35,7 +35,7 @@ python build_dstore.py \
     --starting_point 0
 
 eval faiss index
-CUDA_VISIBLE_DEVICES=2 python eval_lm.py /specific/netapp5_2/gamir/advml20/tomeramit/knnlm/data-bin/wikitext-103/ \
+CUDA_VISIBLE_DEVICES=6 python eval_lm.py /specific/netapp5_2/gamir/advml20/tomeramit/knnlm/data-bin/wikitext-103/ \
     --path /specific/netapp5_2/gamir/advml20/tomeramit/knnlm/checkpoints_16_8/checkpoint_best.pt \
     --sample-break-mode complete --max-tokens 768 \
     --context-window 512 --softmax-batch 1024 \
@@ -55,3 +55,5 @@ CUDA_VISIBLE_DEVICES=2 python eval_lm.py /specific/netapp5_2/gamir/advml20/tomer
     --model-overrides "{'knn_keytype': 'last_ffn_input'}" \
     --k 256 --lmbda 1.0 --dstore-size 103226509 --knn-keytype last_ffn_input \
     --probe 32 --knnlm --no-load-keys --knn-sim-func "do_not_recomp_l2"
+
+	

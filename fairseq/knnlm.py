@@ -16,6 +16,7 @@ class KNN_Dstore(object):
         self.sim_func = args.knn_sim_func
         self.dstore_fp16 = args.dstore_fp16
         self.index = self.setup_faiss(args)
+        print("self.index.sizes",self.index.sizes)
 
 
     def setup_faiss(self, args):
